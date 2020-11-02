@@ -1,0 +1,45 @@
+{
+  "name": "",
+  "version": "",
+  "author": "",
+  "description": "",
+  "main": "./build/main.js",
+  "module": "./build-esm/main.js",
+  "types": "./build-esm/main.d.ts",
+  "files": [
+    "build/**/*",
+    "build-esm/**/*",
+    "types/**/*"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "npm run test && npm run lint && npm run build-commonjs && npm run build-esm",
+    "format": "prettier --write \"src/**/*.{js,ts}\"",
+    "build-commonjs": "npm run build-commonjs:clean && npm run build-commonjs:build",
+    "build-commonjs:clean": "rimraf build",
+    "build-commonjs:build": "tsc --outDir build",
+    "build-esm": "npm run build-esm:clean && npm run build-esm:build",
+    "build-esm:clean": "rimraf build-esm",
+    "build-esm:build": "tsc -d -m es6 --outDir build-esm",
+    "lint": "npm run lint:tslint",
+    "lint:tslint": "tslint -p tsconfig.json",
+    "mock": "amplify mock",
+    "test": "jest --config jestconfig.json --verbose --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jest": "^26.5.3",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.4.1",
+    "ts-loader": "^8.0.5",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.0.3"
+  }
+}
